@@ -122,10 +122,10 @@ function getString(valueName) {
 	return UI.GetString("Misc", "JAVASCRIPT", "Script items", valueName);
 }
 
-function onweaponfire() {
+function checkweaponfire() {
 
 	//get value from the script menu and convert it into float 
-	quickSwitch = getValue("Quick Switch");
+	quickSwitch = getValue("Quick Switch Weapon");
 
 	delay_value_start = parseFloat(getString("Delay Pre Shot"));
 
@@ -250,7 +250,7 @@ function main() {
 
 	UI.AddSliderFloat("", 0, 0);
 	UI.AddLabel("________ Quick Switch Delay _________");
-	UI.AddMultiDropdown("Quick Switch", ["AWP", "Deagle"]);
+	UI.AddMultiDropdown("Quick Switch Weapon", ["AWP", "Deagle"]);
 
 	UI.AddTextbox("Delay Pre Shot")
 	UI.AddTextbox("Delay Post Shot AWP");
@@ -271,7 +271,7 @@ function main() {
 	Cheat.Print("\n\n");
 	Cheat.PrintChat(" \x06Quick Switch Delay Script \x09[ \x06v1.0  \x09] ");
 	Cheat.RegisterCallback("client_disconnect", "SetValue");
-	Cheat.RegisterCallback("weapon_fire", "onweaponfire");
+	Cheat.RegisterCallback("weapon_fire", "checkweaponfire");
 }
 
 main();
