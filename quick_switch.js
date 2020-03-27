@@ -103,7 +103,8 @@ function do_slot2() {
 
 //swap to slot1
 function do_knife() {
-	Cheat.ExecuteCommand("use weapon_knife");
+	//Cheat.ExecuteCommand("use weapon_knife");
+	Cheat.ExecuteCommand("slot3");
 }
 
 
@@ -127,11 +128,11 @@ function checkweaponfire() {
 	//get value from the script menu and convert it into float 
 	quickSwitch = getValue("Quick Switch Weapon");
 
-	delay_value_start = parseFloat(getString("Delay Pre Shot"));
+	delay_value_start = parseFloat(getString("Delay Switch to Knife"));
 
-	delay_value_end_awp = parseFloat(getString("Delay Post Shot AWP"));
+	delay_value_end_awp = parseFloat(getString("Delay Switch to AWP"));
 	
-	delay_value_end_deagle = parseFloat(getString("Delay Post Shot Deagle"));
+	delay_value_end_deagle = parseFloat(getString("Delay Switch to Deagle"));
 
 
 
@@ -252,14 +253,14 @@ function main() {
 	UI.AddLabel("________ Quick Switch Delay _________");
 	UI.AddMultiDropdown("Quick Switch Weapon", ["AWP", "Deagle"]);
 
-	UI.AddTextbox("Delay Pre Shot")
-	UI.AddTextbox("Delay Post Shot AWP");
-	UI.AddTextbox("Delay Post Shot Deagle");
+	UI.AddTextbox("Delay Switch to Knife")
+	UI.AddTextbox("Delay Switch to AWP");
+	UI.AddTextbox("Delay Switch to Deagle");
 	UI.AddSliderFloat("", 0, 0);
 	
 	
 
-	//Fancy message 
+	//Fancy message 	
 	Cheat.Print("\n\n");
 	Cheat.PrintColor([26, 115, 232, 0], "┌┼───────────────────────────── ⫷〡◆〡⫸ ───────────────────────────────────┼┐");
 	Cheat.Print("\n\n");
