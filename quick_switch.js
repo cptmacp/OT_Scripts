@@ -125,15 +125,8 @@ function getString(valueName) {
 
 function checkweaponfire() {
 
-	//get value from the script menu and convert it into float 
 	quickSwitch = getValue("Quick Switch Weapon");
-
-	delay_value_start = parseFloat(getString("Delay Switch to Knife"));
-
-	delay_value_end_awp = parseFloat(getString("Delay Switch to AWP"));
-	
-	delay_value_end_deagle = parseFloat(getString("Delay Switch to Deagle"));
-
+	//get value from the script menu and convert it into float 
 
 
 	//debug 
@@ -149,11 +142,19 @@ function checkweaponfire() {
 	//Cheat.Print(' '+ quickSwitch +'\n');
 
 
-
-
 	//logic to check weapon using if case and switches 
 
 	if (quickSwitch != 0) {
+
+		userID = Event.GetInt("userid")
+
+		userID_index = Entity.GetEntityFromUserID(userID);
+
+		delay_value_start = parseFloat(getString("Delay Switch to Knife"));
+
+		delay_value_end_awp = parseFloat(getString("Delay Switch to AWP"));
+
+		delay_value_end_deagle = parseFloat(getString("Delay Switch to Deagle"));
 
 		localIndex = Entity.GetLocalPlayer();
 
@@ -178,44 +179,45 @@ function checkweaponfire() {
 			present_weapon_deserteagle = 0;
 		}
 
-		switch (quickSwitch) {
+		if (userID_index == localIndex) {
+			switch (quickSwitch) {
+				case 0:
+					break;
 
-			case 0:
+				case 1:
 
-				break;
+					if (present_weapon_awp == 1) {
+						execute_swap = 1;
+					}
 
-			case 1:
+					break;
 
-				if (present_weapon_awp == 1) {
-					execute_swap = 1;
-				}
+				case 2:
 
-				break;
+					if (present_weapon_deserteagle == 1) {
+						execute_swap = 1;
+					}
 
-			case 2:
+					break;
 
-				if (present_weapon_deserteagle == 1) {
-					execute_swap = 1;
-				}
+				case 3:
 
-				break;
+					if (present_weapon_awp == 1 || present_weapon_deserteagle == 1) {
+						execute_swap = 1;
+					}
 
-			case 3:
+					break;
 
-				if (present_weapon_awp == 1 || present_weapon_deserteagle == 1) {
-					execute_swap = 1;
-				}
+				default:
 
-				break;
+					Cheat.Print("Issue in Switch case\n");
 
-			default:
-
-				Cheat.Print("Issue in Switch case\n");
-
-				break;
+					break;
+			}
 		}
 
 		if (execute_swap) {
+
 			if (present_weapon_awp == 1) {
 
 				//for debug
@@ -226,9 +228,8 @@ function checkweaponfire() {
 
 				new Delay(delay_value_end_awp, do_slot1);
 
-
-
 			}
+
 			if (present_weapon_deserteagle == 1) {
 
 
@@ -257,8 +258,8 @@ function main() {
 	UI.AddTextbox("Delay Switch to AWP");
 	UI.AddTextbox("Delay Switch to Deagle");
 	UI.AddSliderFloat("", 0, 0);
-	
-	
+
+
 
 	//Fancy message 	
 	Cheat.Print("\n\n");
@@ -271,11 +272,11 @@ function main() {
 	Cheat.PrintColor([26, 115, 232, 0], "└┼───────────────────────────── ⫷〡◆〡⫸ ───────────────────────────────────┼┘");
 	Cheat.Print("\n\n");
 	Cheat.PrintChat(" \x06Quick Switch Delay Script \x09[ \x06v1.0  \x09] ");
-	Cheat.RegisterCallback("client_disconnect", "SetValue");
-	Cheat.RegisterCallback("weapon_fire", "checkweaponfire");
+
+	//
 }
 
 main();
 
 
-
+Cheat.RegisterCallback("weapon_fire", "checkweaponfire");
